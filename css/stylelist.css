@@ -1,0 +1,97 @@
+header {
+    background-color: #fff;
+    color: #fff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Gaya dasar <body> */
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #2b2b2b;
+    background-color: #f5f6f8;
+    line-height: 1.5;
+}
+
+/* Gaya tautan ('<a>') */
+a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* lihat ketika crusor posisi pada link tersebut */
+a:hover{
+    text-decoration: underline;
+}
+
+/* header nav bar (flex box)*/
+header{
+    background-color: #fff;
+    color: #fff;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+header nav ul{
+    list-style: none;
+    display: flex;
+    gap: 1.25rem;
+}
+
+header nav a{
+    color: #155e03;
+    font-weight: 500;
+}
+
+/* tabel */
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,td{
+    background-color: #155e03;
+    color: #fff;
+}
+
+thead{
+    background-color: #155e03;
+    color: #fff;
+}
+
+tbody tr:nth-child(even) {
+background-color: #f7f9fb;
+}
+
+tbody tr:hover {
+    background-color: #f7f8fb;
+}
+ 
+td button {
+    padding: 0.35rem 0.7rem;
+    margin-right: 0.35rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+td button:first-of-type {
+    background-color: #f0ad4e;
+    color: #fff;
+}
+
+/* ===== Footer ===== */
+footer {
+    text-align: center;
+    padding: 1.25rem;
+    color: #7a8794;
+    font-size: 0.9rem;
+}
