@@ -157,7 +157,7 @@ Halaman ini dirancang untuk pengguna publik (tamu) yang ingin mendaftar menjadi 
 +---------------------------------------------------------+
 
 ##2
-![Petugas Flow Riwayat Pinjaman](img/tuggakan.png.png)
+![Petugas Flow Riwayat Pinjaman](img/tuggakan.png)
 
 ##3 Identifikasi Edge Case (Kasus Batas)
 Berikut adalah kondisi-kondisi pengecualian yang harus ditangani oleh sistem agar tidak terjadi *error* atau anomali data:
