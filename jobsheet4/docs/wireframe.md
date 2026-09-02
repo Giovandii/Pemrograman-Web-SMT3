@@ -130,3 +130,41 @@ D. Riwayat Transaksi
 |                                                         |
 | [ < Sebelumnya ]      [ Hal 1 dari 5 ]  [ Selanjutnya >]|
 +---------------------------------------------------------+
+
+### Latihan Tambahan
+##1
+Wireframe ASCII: Registrasi Anggota Baru (Aktor: Tamu)
+Halaman ini dirancang untuk pengguna publik (tamu) yang ingin mendaftar menjadi anggota perpustakaan secara mandiri sebelum datang ke meja administrasi.
+
++---------------------------------------------------------+
+| SIMPUS-MINI                               [ Login ]     |
++---------------------------------------------------------+
+|                                                         |
+|   +-------------------------------------------------+   |
+|   | Formulir Registrasi Anggota Baru                |   |
+|   |                                                 |   |
+|   | Nama Lengkap : [______________________________] |   |
+|   | Alamat       : [______________________________] |   |
+|   | No. HP       : [______________________________] |   |
+|   | Email        : [______________________________] |   |
+|   | Password     : [______________________________] |   |
+|   |                                                 |   |
+|   | [ ] Saya setuju dengan peraturan perpustakaan   |   |
+|   |                                                 |   |
+|   |                [ DAFTAR SEKARANG ]              |   |
+|   +-------------------------------------------------+   |
+|                                                         |
++---------------------------------------------------------+
+
+##2
+![Petugas Flow Riwayat Pinjaman](img/Untitled%20(1).png)
+
+##3 Identifikasi Edge Case (Kasus Batas)
+Berikut adalah kondisi-kondisi pengecualian yang harus ditangani oleh sistem agar tidak terjadi *error* atau anomali data:
+1. **Meminjam buku yang sama ganda:** Petugas tidak sengaja memindai/memasukkan buku yang sama dua kali untuk anggota yang sama di hari yang sama. (Solusi: Sistem menolak input kedua dengan peringatan "Buku ini sudah masuk daftar pinjaman anggota").
+2. **Meminjam saat memiliki denda aktif:** Anggota ingin meminjam buku baru, padahal masih memiliki denda tunggakan dari buku sebelumnya yang belum dibayar. (Solusi: Tombol 'Proses Peminjaman' dikunci hingga denda dilunasi).
+3. **Batas limit peminjaman:** Anggota mencoba meminjam 4 buku sekaligus, padahal aturan maksimal hanya 2 buku per orang. (Solusi: Sistem memvalidasi jumlah buku yang sedang dipinjam saat ini sebelum menyetujui transaksi baru).
+4. **Stok fisik tidak sinkron (Buku Hilang/Rusak):** Sistem mencatat stok buku ada 1, tetapi wujud fisik bukunya hilang atau rusak sehingga tidak bisa dipinjamkan. (Solusi: Perlu ada fitur penyesuaian stok manual bagi petugas di menu Kelola Buku).
+
+##4
+![Login Petugas](../loginPetugas.html)
