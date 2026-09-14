@@ -26,12 +26,30 @@ $stmt = $pdo->prepare(
      VALUES (:nama, :no_anggota, :alamat, :no_hp)
      RETURNING id"
 );
-$stmt->execute([
-    'nama' => $nama,
-    'no_anggota' => $noAnggota,
-    'alamat' => $alamat,
-    'no_hp' => $noHp,
-]);
+try {
+    $stmt->execute([
+        'nama' => $nama,
+        'no_anggota' => $noAnggota,
+        'alamat' => $alamat,
+        'no_hp' => $noHp,
+    ]);
+} catch (PDOException $e) {
+    // Kode SQLSTATE '23505' adalah kode standar PostgreSQL untuk pelanggaran UNIQUE constraint
+    if ($e->getCode() === '23505') {
+        $_SESSION['flash'] = [
+            'type' => 'error',
+            'pesan' => "No. Anggota '{$noAnggota}' sudah terdaftar. Silakan gunakan nomor lain."
+        ];
+    } else {
+        $_SESSION['flash'] = [
+            'type' => 'error',
+            'pesan' => "Gagal menyimpan anggota: " . $e->getMessage()
+        ];
+    }
+    // Kembalikan ke form tambah dengan pesan error yang rapi
+    header('Location: tambah.php');
+    exit;
+}
 
 $_SESSION['flash'] = ['type' => 'success', 'pesan' => 'Anggota berhasil ditambahkan.'];
 header('Location: list.php');
