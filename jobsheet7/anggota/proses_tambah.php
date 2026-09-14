@@ -12,6 +12,20 @@ if ($nama === '') {
 }
 if ($noAnggota === '') {
     $errors[] = "No. Anggota wajib diisi.";
+} elseif (strlen($noAnggota) < 3) {
+    $errors[] = "No. Anggota minimal terdiri dari 3 karakter.";
+}
+
+// Validasi No. HP (opsional, tapi jika diisi harus berformat nomor telepon valid)
+if ($noHp !== '') {
+    if (!preg_match('/^[0-9+\s-]+$/', $noHp) || strlen(str_replace([' ', '-', '+'], '', $noHp)) < 10) {
+        $errors[] = "Nomor HP tidak valid (minimal 10 digit angka).";
+    }
+}
+
+// Validasi Alamat (misal jika ingin mewajibkan alamat)
+if ($alamat === '') {
+    $errors[] = "Alamat wajib diisi.";
 }
 
 if (!empty($errors)) {
