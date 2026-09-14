@@ -6,7 +6,18 @@ require __DIR__ . '/../includes/koneksi.php';
 $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
 
-$daftarBuku = $pdo->query("SELECT * FROM buku ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+// $daftarBuku = $pdo->query("SELECT * FROM buku ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+$keyword = trim($_GET['q'] ?? '');
+
+if ($keyword !== '') {
+    // Jika ada input pencarian, cari judul buku dengan ILIKE
+    $stmt = $pdo->prepare("SELECT * FROM buku WHERE judul ILIKE :keyword ORDER BY id DESC");
+    $stmt->execute(['keyword' => '%' . $keyword . '%']);
+    $daftarBuku = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    // Jika kolom pencarian kosong, tampilkan semua buku seperti biasa
+    $daftarBuku = $pdo->query("SELECT * FROM buku ORDER BY id DESC")->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
         <section>
             <h2>Daftar Buku</h2>
@@ -15,10 +26,14 @@ $daftarBuku = $pdo->query("SELECT * FROM buku ORDER BY id DESC")->fetchAll(PDO::
                 <p class="flash flash-<?php echo $flash['type']; ?>"><?php echo $flash['pesan']; ?></p>
             <?php endif; ?>
 
-            <div class="search-box">
+            <form method="get" action="list.php" class="search-box">
                 <label for="search-input">Cari Judul Buku</label>
-                <input type="text" id="search-input" placeholder="Ketik judul buku...">
-            </div>
+                <input type="text" id="search-input" name="q" value="<?php echo htmlspecialchars($keyword); ?>" placeholder="Ketik judul buku...">
+            <button type="submit">Cari</button>
+            <?php if ($keyword !== ''): ?>
+                <a href="list.php" style="margin-left: 0.5rem; text-decoration: none;">Reset</a>
+            <?php endif; ?>
+        </form>
 
             <div class="table-responsive">
             <table>
