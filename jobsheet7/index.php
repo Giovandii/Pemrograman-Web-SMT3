@@ -25,4 +25,14 @@ $totalAnggota = count($_SESSION['anggota'] ?? []);
                 <p>0</p>
             </article>
         </section>
+
+        <!-- Tombol Reset Data Sesi -->
+        <section style="margin-top: 1.5rem;">
+            <a href="reset_session.php" 
+               onclick="return confirm('Apakah Anda yakin ingin menghapus semua data di sesi?');"
+               style="display: inline-block; padding: 0.5rem 1rem; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">
+                Reset Semua Data Sesi
+            </a>
+        </section>
+        
 <?php include __DIR__ . '/includes/footer.php'; ?>
