@@ -72,10 +72,14 @@ $totalPages = max(1, (int) ceil($totalRows / $perPage));
                             <td><?php echo $anggota['no_hp']; ?></td>
                             <td>
                                 <a href="edit.php?id=<?php echo $anggota['id']; ?>" class="btn-edit">Edit</a>
-                                <form class="form-hapus" method="post" action="hapus.php">
+
+                                <!-- Tombol Hapus hanya dirender untuk role admin -->
+                                <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+                                    <form method="post" action="hapus.php" class="form-hapus">
                                     <input type="hidden" name="id" value="<?php echo $anggota['id']; ?>">
                                     <button type="submit" class="btn-hapus">Hapus</button>
                                 </form>
+                                <?php endif; ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>
