@@ -10,3 +10,16 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: ../auth/login.php');
     exit;
 }
+// Jika sesi kosong, tapi ada cookie 'remember_user'
+if (!isset($_SESSION['user_id']) && isset($_COOKIE['remember_user'])) {
+    require __DIR__ . '/koneksi.php';
+    $stmt = $pdo->prepare("SELECT id, nama, role FROM users WHERE id = :id");
+    $stmt->execute(['id' => $_COOKIE['remember_user']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['nama']    = $user['nama'];
+        $_SESSION['role']    = $user['role'];
+    }
+}
