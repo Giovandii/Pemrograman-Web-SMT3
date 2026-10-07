@@ -9,7 +9,8 @@ unset($_SESSION['flash']);
 
 $keyword = trim($_GET['q'] ?? '');
 
-$sqlDasar = "SELECT p.id, b.judul, a.nama, p.tanggal_pinjam
+// Menambahkan tanggal-jatuh tempo No. 2 dan No. 3 sbg no_hp
+$sqlDasar = "SELECT p.id, b.judul, a.nama, a.no_hp, p.tanggal_pinjam, p.tanggal_jatuh_tempo
              FROM peminjaman p
              JOIN buku b ON b.id = p.buku_id
              JOIN anggota a ON a.id = p.anggota_id
@@ -45,8 +46,12 @@ $daftarAktif = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <thead>
                     <tr>
                         <th>Anggota</th>
+                        <!-- Menambahkan kolom No. hp soal lanjuta no 3 -->
+                        <th>No. Hp</th>
                         <th>Buku</th>
                         <th>Tgl Pinjam</th>
+                        <!-- Menambahkan tampilan kolom jatuh tempo no 2 -->
+                        <th>Jatuh Tempo</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -59,8 +64,12 @@ $daftarAktif = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php foreach ($daftarAktif as $trx): ?>
                         <tr>
                             <td><?php echo e($trx['nama']); ?></td>
+                            <!-- Menambahkan perulangan no_hp -->
+                            <td><?php echo e($trx['no_hp']); ?></td>
                             <td><?php echo e($trx['judul']); ?></td>
                             <td><?php echo $trx['tanggal_pinjam']; ?></td>
+                            <!-- Menambahkan tanggal_jatuh tempo no 2 -->
+                            <td><?php echo e($trx['tanggal_jatuh_tempo']); ?></td>
                             <td>
                                 <form method="post" action="proses_kembali.php">
                                     <?php echo csrf_field(); ?>
