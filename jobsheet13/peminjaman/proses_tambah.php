@@ -17,6 +17,21 @@ if ($anggotaId === '' || $bukuId === '') {
 try {
     $pdo->beginTransaction();
 
+    // Nomor 2 Latihan Tambahan Jobsheet 13
+    $cekTerlambat = $pdo->prepare(
+        "SELECT COUNT(*) FROM peminjaman
+        WHERE anggota_id =: anggota_id
+        AND status = 'dipinjam'
+        AND (CURRENT_DATE - tanggal_pinjam)_14"
+    );
+    $cekTerlambat->execute(['anggota_id' => $anggotaId]);
+    $adaTerlambat = $cekTerlambat->fetchColumn();
+
+    if ($adaTerlambat) {
+        throw new Exception('Anggota memiliki tanggungan peminjaman yang 
+        terlambat lebih dari 14 hari. Harap selesaikan pengembalian terlebih dahulu.');
+    }
+
     // Kunci baris buku (FOR UPDATE) agar stok tidak berubah oleh transaksi lain
     // di tengah proses ini — mencegah stok menjadi negatif akibat race condition.
     $cek = $pdo->prepare("SELECT stok FROM buku WHERE id = :id FOR UPDATE");
